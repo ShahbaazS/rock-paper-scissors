@@ -10,6 +10,93 @@
 
 <body>
     <script>
+        const rps = ["Rock", "Paper", "Scissors"];
+
+        function getComputerChoice() {
+            const choice = Math.floor((Math.random() * 3));
+            return rps[choice];
+        }
+
+        function getPlayerChoice() {
+            const choice = prompt("What's your selection?");
+            return choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase();
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection === computerSelection) {
+                alert(`Draw. ${playerSelection} draws ${computerSelection}`);
+                return "Tie";
+            }
+            else {
+                switch (playerSelection) {
+                    case rps[0]:
+                        if (computerSelection === rps[1]) {
+                            alert(`You Lose. ${rps[1]} beats ${rps[0]}.`);
+                            return "Computer";
+                        }
+                        else if (computerSelection === rps[2]) {
+                            alert(`You Win. ${rps[0]} beats ${rps[2]}.`);
+                            return "Player";
+                        }
+                        break;
+
+                    case rps[1]:
+                        if (computerSelection === rps[0]) {
+                            alert(`You Win. ${rps[1]} beats ${rps[0]}.`);
+                            return "Player";
+                        }
+                        else if (computerSelection === rps[2]) {
+                            alert(`You Lose. ${rps[1]} beats ${rps[2]}.`);
+                            return "Computer";
+                        }
+                        break;
+
+                    case rps[2]:
+                        if (computerSelection === rps[0]) {
+                            alert(`You Lose. ${rps[0]} beats ${rps[2]}.`);
+                            //console.log(`You Lose. ${rps[0]} beats ${rps[2]}.`);
+                            return "Computer";
+                        }
+                        else if (computerSelection === rps[1]) {
+                            alert(`You Win. ${rps[2]} beats ${rps[1]}.`);
+                            //console.log(`You Win. ${rps[2]} beats ${rps[1]}.`);
+                            return "Player";
+                        }
+                        break;
+                }
+            }
+        }
+
+        function game() {
+            let gameOver = false;
+            let wins = 0;
+            let losses = 0;
+            while (!gameOver) {
+                const playerChoice = getPlayerChoice();
+                const computerChoice = getComputerChoice();
+                const outcome = playRound(playerChoice, computerChoice);
+                switch (outcome) {
+                    case "Tie":
+                        break;
+                    case "Player":
+                        wins++;
+                        break;
+                    case "Computer":
+                        losses++;
+                        break;
+                }
+                if (wins === 5) {
+                    gameOver = true;
+                    alert("Game Over. You Won 5 Rounds!");
+                }
+                if (losses === 5) {
+                    gameOver = true;
+                    alert("Game Over. You Lost 5 Rounds!");
+                }
+            }
+        }
+
+        game();
 
     </script>
 </body>
